@@ -1,3 +1,25 @@
+/*
+SOAL
+  1. Menerima 10 Input dari Pengguna: Nama, Kelas, NIM, Universitas, Fakultas, Hobi, 
+     Umur, Tahun Lahir, Asal Kota.
+  2. Menerapkan Null Safety & ??: Jika input String kosong, berikan nilai default 
+     (misalnya "Tidak ada nama").
+  3. Menerapkan tryParse: Untuk input int (NIM, Umur, Tahun Lahir), gunakan int.tryParse() 
+     dan operator ?? untuk menetapkan nilai default yang tidak valid (-1) jika input gagal dikonversi.
+  4. Validasi Akhir: Cek apakah input angka (NIM, Umur, Tahun Lahir) memiliki nilai negatif (< 0). 
+     Jika ya, batalkan pencetakan biodata dan tampilkan pesan error.
+     
+  Jika validasi berhasil, program harus menghasilkan UserID dengan format: 
+  [INISIAL] - [3 DIGIT AKHIR NIM] - [2 DIGIT AKHIR TAHUN LAHIR] - PROVOKS.
+    
+    Anda harus menggunakan teknik manipulasi String untuk:
+
+    INISIAL: Ambil 2 huruf pertama dari Nama dan ubah menjadi huruf kapital (toUpperCase()). 
+    Jika nama kurang dari 2 huruf, gunakan seluruh nama dan ubah menjadi kapital.
+    a. 3 DIGIT AKHIR NIM: Ambil 3 digit terakhir dari NIM.
+    b. 2 DIGIT AKHIR TAHUN LAHIR: Ambil 2 digit terakhir dari Tahun Lahir.
+*/
+
 import 'dart:io';
 
 void main(List<String> args){
