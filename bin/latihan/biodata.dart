@@ -16,13 +16,13 @@ SOAL
 
     INISIAL: Ambil 2 huruf pertama dari Nama dan ubah menjadi huruf kapital (toUpperCase()). 
     Jika nama kurang dari 2 huruf, gunakan seluruh nama dan ubah menjadi kapital.
-    a. 3 DIGIT AKHIR NIM: Ambil 3 digit terakhir dari NIM.
+    a. 3 DIGIT AKHIR NIM: Ambil 3 digit Bterakhir dari NIM.
     b. 2 DIGIT AKHIR TAHUN LAHIR: Ambil 2 digit terakhir dari Tahun Lahir.
 */
 
 import 'dart:io';
 
-void main(List<String> args){
+void main(){
   // TIPE DATA DAN INPUT USER
   stdout.write("Masukan nama\t\t: ");
   String? nama = stdin.readLineSync()?.trim() ?? "Tidak ada nama";

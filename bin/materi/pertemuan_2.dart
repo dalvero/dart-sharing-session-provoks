@@ -97,8 +97,6 @@ void main(){
     print("\nPERHATIAN: Umur dianggap 0 karena input tidak valid.");
   }
 
-  
-
   // MANIPULASI STRING
   String kodeDiskonInput = "hemat"; // INPUT DENGAN HURUF KECIL
   double hargaAwal = 100.0;
