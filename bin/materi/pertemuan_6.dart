@@ -3,8 +3,9 @@
 void main(List<String> args) {
   sapa();
   print(tambah(2, 3));
+
   salam("Nello");
-  print(kali(4, 5)); // 20
+  print(kali(4, 5)); // 20  
 }
 
 // FUNCTION SAPA
@@ -22,9 +23,8 @@ int tambah(int a, int b) {
   return a + b;
 }
 
-// FUNCTION SALAM
 void salam(String nama) {
-  print("Halo, $nama!");
+  print("Selamat datang, $nama!");
 }
 
 // FUNCTION KALI

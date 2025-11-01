@@ -12,6 +12,7 @@ void main(List<String> args) {
     print("C");
   }
 
+
   // BENTUK DASAR
   // if (kondisi) {
   //   // KODE DIJALANKAN JIKA SESUAI KONDISI

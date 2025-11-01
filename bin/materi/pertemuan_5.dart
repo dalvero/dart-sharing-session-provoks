@@ -26,10 +26,13 @@ void main(List<String> args) {
   } while (j <= 3);
 
   // FOR-IN LOOP
-  var buah = ["Apel", "Jeruk", "Mangga"];
+  var buah = ["Apel", "Jeruk", "Mangga", "Pisang"];
   for (var item in buah) {
     print(item);
   }
+
+
+
 
 
 

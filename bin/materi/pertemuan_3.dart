@@ -2,7 +2,8 @@
 
 void main(List<String> args) {
   // INISIALISASI
-  List<String> hewan = ["kucing", "kambing", "sapi"];
+  List<String> hewan = [];
+  hewan = ["kucing", "kambing", "sapi"];  
 
   // MENCETAK ARRAY DENGAN LOOPING
   for (var i = 0; i < hewan.length; i++) {
@@ -24,8 +25,8 @@ void main(List<String> args) {
   buah[1] = "pisang";
 
   // INISIALISASI ARRAY DENGAN JUMLAH ELEMEN TETAP
-  // List<int> nilai = List.filled(5, 0); // isi awal 0 semua
-
+  //List<int> nilai = List.filled(5, 0); // isi awal 0 semua
+  
   // TIPE DATA WAJIB SESUAI DEKLARASI
   // List<int> nilai = [1, 2, "3"]; // ❌ error
 
@@ -63,15 +64,34 @@ void main(List<String> args) {
   List<int> B = [1, 3, 5];
   List<int> hasil = [];
 
+  // for (int i = 0; i < A.length; i++) {
+  //   hasil.add(A[i] + B[i]);
+  // }
+
+  // print("Hasil penjumlahan array A + B:");
+  // for (int i = 0; i < hasil.length; i++) {
+  //   print("Hasil[$i] = ${hasil[i]}");
+  // }
+
+  print("==================");
+  // === PENJUMLAHAN 2 ARRAY 2 ===    
+
+  int dariBelakang = A.length - 1;
+
+
   for (int i = 0; i < A.length; i++) {
-    hasil.add(A[i] + B[i]);
+    // for (int j = A.length - 1; j >= 0; j--) {
+    //   print("Penjumlahan $i =  ${A[i]} + ${B[j]} = ${A[i] + B[j]}" );
+    // }
+    hasil.add(A[i] + B[dariBelakang]);    
+    print("${A[i]} + ${B[dariBelakang]}");
+    dariBelakang--;  
   }
 
   print("Hasil penjumlahan array A + B:");
-  for (int i = 0; i < hasil.length; i++) {
+  for (int i = 0; i < A.length; i++) {
     print("Hasil[$i] = ${hasil[i]}");
   }
-
 }
 
 
