@@ -1,5 +1,4 @@
-class Utility {
-  
+class Utility {  
   void printUtility(){
     print("Halo");
   }
