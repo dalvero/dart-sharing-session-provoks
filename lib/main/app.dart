@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:belajar_dart_dasar/model/mahasiswa.dart';
 import 'package:belajar_dart_dasar/repository/repo_mahasiswa.dart';
+import 'package:belajar_dart_dasar/utility/utility.dart';
 
 
 class App {
@@ -28,34 +29,45 @@ class App {
     
     do {
       
-      printSpace();
-      printMenu(mainMenu, "Main Menu");
-      int option = optionValidation(mainMenu);
+      Utility().printSpace();
+      Utility().printDividerWithTitle("Menu Utama", "=", 50);
+      Utility().printMenu(mainMenu);
+      int option = Utility().optionValidation(mainMenu);
       
-
       switch (option) {
-        case 1:
-          // TODO: Buat logika input data mahasiswa baru dan panggil repo.tambahMahasiswa()
-          addMahasiswa();
-          pause();
+        case 1:          
+          createMahasiswa();
+          Utility().pause();
           break;
         case 2:
-          // TODO: Panggil repo.tampilkanSemuaMahasiswa()
           repo.tampilkanSemuaMahasiswa();
-          pause();
+          Utility().pause();
           break;
         case 3:
-          // TODO: Input NIM dan panggil repo.getMahasiswaByNim()
-          break;
+          String nim = '';
+          
+          // INPUT NIM
+          stdout.write("Masukkan NIM\t\t: ");
+          nim = stdin.readLineSync()?.trim() ?? '';
+          Mahasiswa? mhs = repo.getMahasiswaByNim(nim);
 
+          // VALIDASI
+          if (mhs != null) {
+            Utility().printSpace();
+            mhs.tampilkanData();
+          } else {
+            print("Mahasiswa dengan NIM $nim tidak ditemukan.");
+          }
+          Utility().pause();
+          break;
         case 4:
-          // TODO: Input NIM dan data baru, lalu panggil repo.updateMahasiswa()
+          updateMahasiswaByNim();
+          Utility().pause();
           break;
-
         case 5:
-          // TODO: Input NIM dan panggil repo.hapusMahasiswa()
+          deleteMahasiswaByNim();
+          Utility().pause();
           break;
-
         case 0:
           print("Keluar dari aplikasi...");
           isExit = true;
@@ -66,55 +78,68 @@ class App {
     } while (!isExit);
   }
 
-  // FUNCTION PRINT MENU
-  void printMenu(List<String> menu, String title){
-    print(title);
-    print("");
-    for (var i = 0; i < menu.length; i++) {
-      print("${i+1}. ${menu[i]}");
-      if (i == menu.length - 1) {
-        print("0. Keluar");
-      }
-    }
-  }
-
-  // FUNCTION VALIDATE
-  int optionValidation(List<String> menu){
-    stdout.write("> Silahkan pilih menu : ");  
-    int option = int.tryParse(stdin.readLineSync()?.trim() ?? ' ') ?? -1;
-
-    if (option < 0 || option > menu.length) {
-      return -1;
-    }
-    return option;
-  }
-
-  // FUNCTION PRINT SPACE
-  void printSpace(){    
-    for (var i = 0; i < 50; i++) {
-      print("");
-    }
-  }
-
-  // FUNCTION PAUSE
-  void pause(){
-    stdout.write("Tekan ENTER untuk melanjutkan...");
-    stdin.readLineSync();
-  }
-
   // FUNCTION ADD MAHASISWA
-  void addMahasiswa(){
+  void createMahasiswa(){
     Mahasiswa mhs = Mahasiswa.empty();
 
     // INPUT USER
-    stdout.write("Masukkan NIM\t\t: ");
-    mhs.nim = stdin.readLineSync()?.trim() ?? '';
     stdout.write("Masukkan Nama\t\t: ");
     mhs.name = stdin.readLineSync()?.trim() ?? '';    
-    stdout.write("Masukan Fakultas\t:");
+    stdout.write("Masukkan NIM\t\t: ");
+    mhs.nim = stdin.readLineSync()?.trim() ?? '';  
+    stdout.write("Masukan Fakultas\t: ");
     mhs.fakultas = stdin.readLineSync()?.trim() ?? '';
     stdout.write("Masukan Prodi\t\t: ");
     mhs.prodi = stdin.readLineSync()?.trim() ?? '';
     repo.tambahMahasiswa(mhs);
+  }
+
+  // FUNCTION UPDATE MAHASISWA BY NIM
+  void updateMahasiswaByNim(){
+    String nim = '';
+
+    // INPUT NIM
+    stdout.write("Masukkan NIM Mahasiswa yang akan diupdate : ");
+    nim = stdin.readLineSync()?.trim() ?? '';
+
+    // APAKAH ADA MAHASISWA DENGAN NIM TERSEBUT?
+    Mahasiswa? existingMhs = repo.getMahasiswaByNim(nim);
+    if (existingMhs == null) {
+      print("Mahasiswa dengan nim $nim tidak ditemukan!");
+      print("Gagal update mahasiswa.");
+      return;
+    }
+
+    // INPUT DATA BARU
+    Mahasiswa updateMhs = Mahasiswa.empty();    
+    stdout.write("Masukkan Nama\t\t: ");
+    updateMhs.name = stdin.readLineSync()?.trim() ?? '';    
+    stdout.write("Masukkan NIM\t\t: ");
+    updateMhs.nim = stdin.readLineSync()?.trim() ?? '';
+    stdout.write("Masukan Fakultas\t: ");
+    updateMhs.fakultas = stdin.readLineSync()?.trim() ?? '';
+    stdout.write("Masukan Prodi\t\t: ");
+    updateMhs.prodi = stdin.readLineSync()?.trim() ?? '';
+
+    // PANGGIL UPDATE
+    repo.updateMahasiswa(nim, updateMhs);
+  }
+
+  // FUNCTION DELETE MAHASISWA
+  void deleteMahasiswaByNim(){
+    String nim = '';          
+    // INPUT NIM
+    stdout.write("Masukkan NIM\t\t: ");
+    nim = stdin.readLineSync()?.trim() ?? '';
+    Mahasiswa? mhs = repo.getMahasiswaByNim(nim);
+
+    // VALIDASI
+    if (mhs != null) {
+      repo.hapusMahasiswa(nim);
+      print("Mahasiswa dengan NIM $nim berhasil dihapus.");
+    } else {
+      print("Mahasiswa dengan NIM $nim tidak ditemukan.");
+      print("Gagal menghapus mahasiswa.");
+    }
   }
 }

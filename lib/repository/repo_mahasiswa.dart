@@ -1,4 +1,5 @@
 import 'package:belajar_dart_dasar/model/mahasiswa.dart';
+import 'package:belajar_dart_dasar/utility/utility.dart';
 
 class RepoMahasiswa {
   // LIST UNTUK MENYIMPAN DATA MAHASISWA
@@ -6,6 +7,13 @@ class RepoMahasiswa {
 
   // CREATE
   void tambahMahasiswa(Mahasiswa mhs) {
+    // VALIDASI NIM
+    for (var mahasiswa in _listMahasiswa) {
+      if (mahasiswa.nim == mhs.nim) {
+        print("Mahasiswa dengan NIM ${mhs.nim} sudah terdaftar!");
+        return;
+      }
+    }
     _listMahasiswa.add(mhs);
     print("Mahasiswa '${mhs.name}' berhasil ditambahkan!");
   }
@@ -23,7 +31,6 @@ class RepoMahasiswa {
     try {
       return _listMahasiswa.firstWhere((mhs) => mhs.nim == nim);
     } catch (e) {
-      print("Mahasiswa dengan NIM $nim tidak ditemukan!");
       return null;
     }
   }
@@ -31,7 +38,14 @@ class RepoMahasiswa {
   // UPDATE BERDASARKAN NIM
   void updateMahasiswa(String nim, Mahasiswa updated) {
     for (var i = 0; i < _listMahasiswa.length; i++) {
-      if (_listMahasiswa[i].nim == nim) {
+      if (_listMahasiswa[i].nim == nim) {                
+        // VALIDASI NIM MAHASISWA TERBARU
+        for (var j = 0; j < _listMahasiswa.length; j++) {
+          if (j != i && _listMahasiswa[j].nim == updated.nim) {
+            print("NIM ${updated.nim} sudah digunakan oleh mahasiswa lain!");
+            return;
+          }
+        }
         _listMahasiswa[i] = updated;
         print("Data Mahasiswa dengan NIM $nim berhasil diperbarui!");
         return;
@@ -43,7 +57,6 @@ class RepoMahasiswa {
   // DELETE BERDASARKAN NIM
   void hapusMahasiswa(String nim) {
     _listMahasiswa.removeWhere((mhs) => mhs.nim == nim);
-    print("Mahasiswa dengan NIM $nim dihapus (jika ada).");
   }
 
   // TAMPILKAN SEMUA DATA
@@ -51,7 +64,7 @@ class RepoMahasiswa {
     if (_listMahasiswa.isEmpty) {
       print("Tidak ada data mahasiswa.");
     } else {
-      print("\nDaftar Mahasiswa:");
+      Utility().printDividerWithTitle("Daftar Mahasiswa", "=", 50);
       for (var mhs in _listMahasiswa) {
         mhs.tampilkanData();
         print('');
